@@ -1,0 +1,49 @@
+const enhancer = require('./enhancer.js');
+// test away!
+const sword = {
+    name: "dark sword of oblivion",
+    enhancement: 8,
+    durability: 96 ,
+}
+
+describe("Test for enhancer", () =>{
+    describe("Test for success", ()=>{
+        it("Enhancement value should increase by 1", () =>{
+            const actual = enhancer.succeed(sword);
+            const expected = sword.enhancement + 1;
+            if (actual < 20){
+                expect(actual.enhancement).toBe(expected)
+            }
+        })
+        it("Ehancement value should not change if enhancement is 20",() => {
+            const actual = enhancer.succeed({...sword,enhancement:20})
+            expect(actual.enhancement).not.toBeGreaterThan(20)
+        })
+        it("Durability should be unchanged",() => {
+            const actual = enhancer.succeed(sword);
+            expect(actual.durability).toBe(sword.durability)
+        })
+    })
+
+    describe("Test for failure",()=>{
+        it("Enhancement is less than 15, durabilty decreased by 5",() =>{
+            const actual = enhancer.fail({...sword,enhancement:14})
+            expect(actual.durability).toBe(sword.durability-5)
+        })
+        it("If the item's enhancement is 15 or more, the durability of the item is decreased by 10",() =>{
+            const actual = enhancer.fail({...sword,enhancement:15})
+            expect(actual.durability).toBe(sword.durability-10)
+        })
+        it("If the item's enhancement level is greater than 16, the enhancement level decreases by 1",() =>{
+            const actual = enhancer.fail({...sword,enhancement:17})
+            expect(actual.enhancement).toBe(16)
+        })
+    })
+
+    describe("Test for repairing an item",()=>{
+        it("Durability set to 100",()=>{
+            const actual = enhancer.repair(sword)
+            expect(actual.durability).toBe(100)
+        })
+    })
+})
