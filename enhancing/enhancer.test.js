@@ -24,6 +24,7 @@ describe("Test for enhancer", () =>{
             expect(actual.durability).toBe(sword.durability)
         })
     })
+
     describe("Test for failure",()=>{
         it("Enhancement is less than 15, durabilty decreased by 5",() =>{
             const actual = enhancer.fail({...sword,enhancement:14})
@@ -34,7 +35,15 @@ describe("Test for enhancer", () =>{
             expect(actual.durability).toBe(sword.durability-10)
         })
         it("If the item's enhancement level is greater than 16, the enhancement level decreases by 1",() =>{
-            
+            const actual = enhancer.fail({...sword,enhancement:17})
+            expect(actual.enhancement).toBe(16)
+        })
+    })
+
+    describe("Test for repairing an item",()=>{
+        it("Durability set to 100",()=>{
+            const actual = enhancer.repair(sword)
+            expect(actual.durability).toBe(100)
         })
     })
 })
