@@ -29,11 +29,12 @@ describe("Test for enhancer", () =>{
             const actual = enhancer.fail({...sword,enhancement:14})
             expect(actual.durability).toBe(sword.durability-5)
         })
-        // it("Enhancement is less than 15, durabilty decreased by 5",() =>{
+        it("If the item's enhancement is 15 or more, the durability of the item is decreased by 10",() =>{
+            const actual = enhancer.fail({...sword,enhancement:15})
+            expect(actual.durability).toBe(sword.durability-10)
+        })
+        it("If the item's enhancement level is greater than 16, the enhancement level decreases by 1",() =>{
             
-        // })
-        // it("Enhancement is less than 15, durabilty decreased by 5",() =>{
-            
-        // })
+        })
     })
 })
