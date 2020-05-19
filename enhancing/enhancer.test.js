@@ -19,5 +19,9 @@ describe("Test for enhancer", () =>{
             const actual = enhancer.succeed({...sword,enhancement:20})
             expect(actual.enhancement).not.toBeGreaterThan(20)
         })
+        it("Durability should be unchanged",() => {
+            const actual = enhancer.succeed(sword);
+            expect(actual.durability).toBe(sword.durability)
+        })
     })
 })
